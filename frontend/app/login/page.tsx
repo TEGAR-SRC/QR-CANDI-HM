@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
-import Footer from '@/components/layout/Footer'
 import { Eye, EyeOff, Loader2, School } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -179,8 +178,6 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
-
-        <Footer />
       </div>
     </div>
   )
