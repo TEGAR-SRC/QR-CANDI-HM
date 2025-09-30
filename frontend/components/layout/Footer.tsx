@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { api } from '@/lib/api'
-import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react'
+import { Mail, Phone, MapPin, ExternalLink, Heart, ArrowUp, Shield, Zap, Users, Award } from 'lucide-react'
 
 interface FooterSettings {
   company_name: string
@@ -61,13 +61,18 @@ export default function Footer() {
     }
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   if (loading) {
     return (
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <footer className="bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="animate-pulse">
-            <div className="h-4 bg-gray-700 rounded w-1/4 mb-4"></div>
-            <div className="h-3 bg-gray-700 rounded w-1/2"></div>
+            <div className="h-4 bg-white/20 rounded w-1/4 mb-4"></div>
+            <div className="h-3 bg-white/20 rounded w-1/2"></div>
           </div>
         </div>
       </footer>
@@ -79,29 +84,66 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-black/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+      
+      {/* Animated Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div className="absolute -top-4 -left-4 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl animate-pulse delay-2000"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                {settings.company_name}
-              </h3>
-              <p className="text-gray-300 text-sm">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <Shield className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">
+                    {settings.company_name}
+                  </h3>
+                  <p className="text-blue-200 text-sm font-medium">
+                    {settings.system_name}
+                  </p>
+                </div>
+              </div>
+              <p className="text-gray-300 text-sm leading-relaxed">
                 {settings.system_description}
               </p>
             </div>
             
+            {/* Features */}
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2 text-sm text-gray-300">
+                <Zap className="h-4 w-4 text-yellow-400" />
+                <span>Real-time Monitoring</span>
+              </div>
+              <div className="flex items-center space-x-2 text-sm text-gray-300">
+                <Users className="h-4 w-4 text-green-400" />
+                <span>Multi-role System</span>
+              </div>
+              <div className="flex items-center space-x-2 text-sm text-gray-300">
+                <Award className="h-4 w-4 text-purple-400" />
+                <span>Advanced Analytics</span>
+              </div>
+            </div>
+            
             {/* Social Media */}
             {Object.keys(settings.social_media).length > 0 && (
-              <div className="flex space-x-4">
+              <div className="flex space-x-3">
                 {settings.social_media.facebook && (
                   <a
                     href={settings.social_media.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="w-10 h-10 bg-white/10 hover:bg-blue-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
                   >
                     <span className="sr-only">Facebook</span>
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -114,7 +156,7 @@ export default function Footer() {
                     href={settings.social_media.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="w-10 h-10 bg-white/10 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
                   >
                     <span className="sr-only">Twitter</span>
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -127,7 +169,7 @@ export default function Footer() {
                     href={settings.social_media.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="w-10 h-10 bg-white/10 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
                   >
                     <span className="sr-only">Instagram</span>
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -140,7 +182,7 @@ export default function Footer() {
                     href={settings.social_media.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="w-10 h-10 bg-white/10 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
                   >
                     <span className="sr-only">LinkedIn</span>
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -153,7 +195,7 @@ export default function Footer() {
                     href={settings.social_media.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="w-10 h-10 bg-white/10 hover:bg-red-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
                   >
                     <span className="sr-only">YouTube</span>
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -167,19 +209,22 @@ export default function Footer() {
 
           {/* Quick Links */}
           {settings.footer_links && settings.footer_links.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Quick Links</h3>
-              <ul className="space-y-2">
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold text-white relative">
+                Quick Links
+                <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              </h3>
+              <ul className="space-y-3">
                 {settings.footer_links.map((link, index) => (
                   <li key={index}>
                     <a
                       href={link.url}
                       target={link.external ? "_blank" : "_self"}
                       rel={link.external ? "noopener noreferrer" : ""}
-                      className="text-gray-300 hover:text-white transition-colors flex items-center space-x-1"
+                      className="text-gray-300 hover:text-white transition-all duration-300 flex items-center space-x-2 group"
                     >
-                      <span>{link.title}</span>
-                      {link.external && <ExternalLink className="h-3 w-3" />}
+                      <span className="group-hover:translate-x-1 transition-transform duration-300">{link.title}</span>
+                      {link.external && <ExternalLink className="h-3 w-3 group-hover:scale-110 transition-transform duration-300" />}
                     </a>
                   </li>
                 ))}
@@ -188,35 +233,44 @@ export default function Footer() {
           )}
 
           {/* Contact Info */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Kontak</h3>
-            <div className="space-y-3">
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-white relative">
+              Kontak
+              <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 rounded-full"></div>
+            </h3>
+            <div className="space-y-4">
               {settings.contact_email && (
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-4 w-4 text-gray-400" />
+                <div className="flex items-center space-x-3 group">
+                  <div className="w-8 h-8 bg-white/10 group-hover:bg-blue-500 rounded-lg flex items-center justify-center transition-all duration-300">
+                    <Mail className="h-4 w-4 text-white" />
+                  </div>
                   <a
                     href={`mailto:${settings.contact_email}`}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-gray-300 hover:text-white transition-all duration-300 group-hover:translate-x-1"
                   >
                     {settings.contact_email}
                   </a>
                 </div>
               )}
               {settings.contact_phone && (
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-4 w-4 text-gray-400" />
+                <div className="flex items-center space-x-3 group">
+                  <div className="w-8 h-8 bg-white/10 group-hover:bg-green-500 rounded-lg flex items-center justify-center transition-all duration-300">
+                    <Phone className="h-4 w-4 text-white" />
+                  </div>
                   <a
                     href={`tel:${settings.contact_phone}`}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-gray-300 hover:text-white transition-all duration-300 group-hover:translate-x-1"
                   >
                     {settings.contact_phone}
                   </a>
                 </div>
               )}
               {settings.address && (
-                <div className="flex items-start space-x-3">
-                  <MapPin className="h-4 w-4 text-gray-400 mt-0.5" />
-                  <span className="text-gray-300 text-sm">
+                <div className="flex items-start space-x-3 group">
+                  <div className="w-8 h-8 bg-white/10 group-hover:bg-purple-500 rounded-lg flex items-center justify-center transition-all duration-300 mt-0.5">
+                    <MapPin className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="text-gray-300 text-sm group-hover:text-white transition-all duration-300 group-hover:translate-x-1">
                     {settings.address}
                   </span>
                 </div>
@@ -225,28 +279,52 @@ export default function Footer() {
           </div>
 
           {/* System Info */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Sistem</h3>
-            <div className="space-y-2">
-              <p className="text-gray-300 text-sm">
-                <span className="font-medium">{settings.system_name}</span>
-              </p>
-              <p className="text-gray-300 text-sm">
-                {settings.system_description}
-              </p>
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-white relative">
+              Sistem
+              <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+            </h3>
+            <div className="space-y-4">
+              <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+                <p className="text-white text-sm font-medium mb-1">
+                  {settings.system_name}
+                </p>
+                <p className="text-gray-300 text-sm">
+                  {settings.system_description}
+                </p>
+              </div>
+              
+              {/* System Status */}
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-green-400 text-sm font-medium">System Online</span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
+        <div className="border-t border-white/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm text-center md:text-left">
+            <div className="flex items-center space-x-2 text-gray-300 text-sm">
+              <Heart className="h-4 w-4 text-red-400 animate-pulse" />
+              <span>Made with</span>
+              <span className="text-white font-medium">{settings.company_name}</span>
+            </div>
+            <p className="text-gray-400 text-sm text-center md:text-right">
               {settings.copyright_text}
             </p>
-            <div className="flex items-center space-x-4 text-sm text-gray-400">
-              <span>Powered by {settings.company_name}</span>
-            </div>
+          </div>
+          
+          {/* Back to Top Button */}
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={scrollToTop}
+              className="group flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+            >
+              <ArrowUp className="h-4 w-4 group-hover:-translate-y-1 transition-transform duration-300" />
+              <span className="text-sm">Back to Top</span>
+            </button>
           </div>
         </div>
       </div>
