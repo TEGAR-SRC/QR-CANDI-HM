@@ -201,6 +201,18 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
               Keluar
             </button>
           </div>
+
+          {/* Footer */}
+          <div className="p-4 border-t bg-gray-50">
+            <div className="text-center">
+              <p className="text-xs text-gray-500 mb-1">
+                © {new Date().getFullYear()} EduPus.id
+              </p>
+              <p className="text-xs text-gray-400">
+                Sistem Absensi Sekolah Digital
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </>

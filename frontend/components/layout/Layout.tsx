@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import Sidebar from './Sidebar'
 import Header from './Header'
-import Footer from './Footer'
 import { Loader2 } from 'lucide-react'
 
 interface LayoutProps {
@@ -66,8 +65,6 @@ export default function Layout({
         <main className="flex-1 p-4 lg:p-8">
           {children}
         </main>
-        
-        <Footer />
       </div>
     </div>
   )
