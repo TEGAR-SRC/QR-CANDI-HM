@@ -1,0 +1,129 @@
+## 📌 Instruksi Lengkap Project Sistem Absensi Sekolah
+
+### 1. **Tujuan Sistem**
+
+Sistem ini bertujuan untuk mendigitalisasi absensi siswa di sekolah dengan menggunakan **barcode** pada kartu pelajar. Absensi bisa dilakukan saat **masuk sekolah, pulang sekolah, dan juga saat pelajaran berlangsung di kelas**. Data absensi akan tersimpan di database, dapat direkap, ditampilkan di dashboard sesuai role user, dan diexport ke file **Excel**.
+
+Sistem juga harus terintegrasi dengan **API WhatsApp** (misalnya Waha API atau API lain) untuk mengirimkan notifikasi otomatis ke orang tua atau pihak sekolah setelah absensi dilakukan.
+
+### 2. **Fitur Utama**
+
+1. **Absensi Barcode**
+
+   * Siswa cukup scan barcode pada kartu pelajar.
+   * Scan bisa menggunakan kamera HP (webcam) atau scanner barcode eksternal.
+   * Data otomatis tersimpan di database (MySQL).
+
+2. **Jenis Absensi**
+
+   * **Absensi Sekolah:** Saat siswa masuk pagi dan pulang sore.
+   * **Absensi Kelas:** Saat setiap pelajaran dimulai/berlangsung.
+   * Sistem harus bisa membedakan absensi sekolah dan absensi kelas.
+
+3. **Rekap & Laporan**
+
+   * Rekap absensi harian, mingguan, bulanan.
+   * Bisa difilter berdasarkan siswa, kelas, atau mata pelajaran.
+   * Bisa diexport ke file **Excel**.
+
+4. **Integrasi API WhatsApp**
+
+   * Kirim pesan otomatis ke orang tua setelah siswa melakukan absensi.
+   * API WhatsApp bisa diintegrasikan langsung ke dalam backend agar simpel.
+   * Konfigurasi token/endpoint bisa diubah sesuai kebutuhan.
+
+5. **Role & User Management**
+
+   * **Admin:** Kelola data siswa, guru, kelas, mata pelajaran, rekap absensi, export data.
+   * **Guru:** Melihat absensi kelas masing-masing, memberi tanda validasi.
+   * **Siswa:** Hanya untuk scan barcode & melihat histori absensi sendiri.
+   * **Orang Tua (opsional):** Bisa menerima notifikasi absensi anak via WA.
+
+6. **Dashboard & UI/UX**
+
+   * Setiap role memiliki dashboard masing-masing.
+   * UI/UX wajib mengikuti gaya **[https://sumopod.com/](https://sumopod.com/)** → clean, modern, dan responsive.
+   * Tema (nama sekolah, logo, warna utama) bisa diganti dari konfigurasi setting.
+
+---
+
+### 3. **Struktur Project**
+
+Sistem harus dipisah dalam **2 folder terpisah**:
+
+1. **Backend (Express.js + MySQL):**
+
+   * API untuk absensi, user management, laporan, integrasi WhatsApp.
+   * Database MySQL dengan tabel terstruktur (user, siswa, guru, absensi, kelas, dll).
+   * Autentikasi (JWT atau session-based).
+   * API stable version, tidak ada library beta.
+
+2. **Frontend (Next.js):**
+
+   * UI/UX sesuai referensi.
+   * Halaman login (admin, guru, siswa).
+   * Dashboard sesuai role.
+   * Halaman scan barcode (integrasi dengan kamera HP/laptop).
+   * Halaman rekap laporan + export Excel.
+   * Setting untuk mengganti nama sekolah/web.
+
+**Catatan:**
+
+* Tidak boleh pakai Docker. Semua dijalankan manual (`npm install`, `npm run dev`, `npm run build`).
+* Semua dependency harus versi **stable**.
+
+---
+
+### 4. **Alur Sistem**
+
+1. Siswa datang → Scan barcode kartu pelajar → Data absensi masuk tersimpan → WA notifikasi terkirim.
+2. Siswa pulang → Scan barcode lagi → Data absensi pulang tersimpan → WA notifikasi terkirim.
+3. Saat pelajaran → Guru/kelas mengaktifkan absensi kelas → Siswa scan barcode → Data tersimpan.
+4. Admin/guru → Cek laporan absensi via dashboard → Bisa export Excel.
+5. Orang tua → Menerima notifikasi absensi anak melalui WA.
+
+---
+
+### 5. **Kebutuhan Teknis**
+
+* **Backend:**
+
+  * Node.js (versi stable terbaru LTS).
+  * Express.js.
+  * MySQL.
+  * Library untuk integrasi WhatsApp API (misal axios/fetch).
+
+* **Frontend:**
+
+  * Next.js (versi stable terbaru LTS).
+  * React hooks & component.
+  * TailwindCSS (untuk styling clean & modern).
+  * Library barcode/QR scanner (versi stable).
+
+---
+
+### 6. **Testing & QA**
+
+* Test scan barcode dari kamera HP & scanner fisik.
+* Test integrasi WA API (notifikasi terkirim dengan benar).
+* Test export Excel (format sesuai & data tidak rusak).
+* Test role (admin, guru, siswa) sesuai hak akses.
+* Test UI/UX di desktop & mobile (responsiveness).
+* Test kestabilan backend (API tidak error).
+
+---
+
+### 7. **Konfigurasi & Kustomisasi**
+
+* Setting nama web/sekolah bisa dilakukan di file konfigurasi (misalnya `.env` atau `config.json`).
+* Logo & tema warna bisa diganti.
+* API WA bisa diganti endpoint/token sesuai kebutuhan.
+
+---
+
+### 8. **Deliverables**
+
+* Folder `backend` (Express.js + MySQL, stable, siap jalan manual).
+* Folder `frontend` (Next.js, stable, siap jalan manual).
+* Dokumentasi singkat cara run backend & frontend.
+* Database MySQL schema (SQL file).
